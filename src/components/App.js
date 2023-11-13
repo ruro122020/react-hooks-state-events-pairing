@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import video from "../data/video.js";
-import { render } from '@testing-library/react';
 import Information from './Information.js';
 import Comments from './Comments.js';
 function App() {
