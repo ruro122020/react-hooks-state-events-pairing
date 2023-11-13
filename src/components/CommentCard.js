@@ -1,10 +1,22 @@
-const CommentCard = ({ comment }) => {
-    return (
-      <div>
-        <h2>{comment.user}</h2>
-        <p>{comment.comment}</p>
-      </div>
-    )
-  }
+import { useState } from "react"
 
-  export default CommentCard
+const CommentCard = ({ comment }) => {
+  const [upVotes, setUpVotes] = useState(0)
+  const [downVotes, setDownVotes] = useState(0)
+  const handleUpVoteClick = () => {
+    setUpVotes(prevState => prevState + 1)
+  }
+  const handleDownVoteClick = () => {
+    setDownVotes(prevState => prevState + 1)
+  }
+  return (
+    <div>
+      <h2>{comment.user}</h2>
+      <p>{comment.comment}</p>
+      <button onClick={handleUpVoteClick}>{upVotes}👍</button>
+      <button onClick={handleDownVoteClick}>{downVotes}👎</button>
+    </div>
+  )
+}
+
+export default CommentCard

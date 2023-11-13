@@ -1,18 +1,33 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import CommentCard from "./CommentCard"
 
 const Comments = ({ comments }) => {
-    const [showComments, setShowComments] = useState(true)
-    const handleClick = () => {
-      setShowComments(prevShowComment => !prevShowComment)
-    }
-    const displayComments = comments.map(comment => <CommentCard comment={comment} />)
-    return (
-      <>
-        <button onClick={handleClick}>{showComments ? 'Hide Comments' : 'Show Comments'}</button>
-        {showComments && displayComments}
-      </>
-    )
+  const [showComments, setShowComments] = useState(true)
+  const [searchComments, setSearchComments] = useState('')
+
+  const handleClick = () => {
+    setShowComments(prevShowComment => !prevShowComment)
   }
 
-  export default Comments
+  const filteredComments = comments.filter(comment => {
+    if (comment.user.toLowerCase().includes(searchComments)) {
+      return true
+    }
+  })
+  const displayComments = filteredComments.map(comment => <CommentCard comment={comment} />)
+  return (
+    <>
+
+      <input
+        type='search'
+        value={searchComments}
+        onChange={(e) => setSearchComments(e.target.value)}
+        placeholder='Search Comments...'
+      />
+      <button onClick={handleClick}>{showComments ? 'Hide Comments' : 'Show Comments'}</button>
+      {showComments && displayComments}
+    </>
+  )
+}
+
+export default Comments
